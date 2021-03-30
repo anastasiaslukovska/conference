@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Presentations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container">
+        <h1 th:text="Presentations"></h1>
+        <a href="/presentations/add" sec:authorize="hasAnyAuthority('ADMIN', 'PRESENTER')"
+           class="btn btn-outline-primary ml-1 mb-2">Add new</a>
+        <div class="container">
+            <table class="table table-bordered" id="schedule-table">
+                <tr class="schedule-table-header">
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Presenters</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Beginning time</th>
+                    <th scope="col">Ending time</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                <tr th:each="el : ${presentations}">
+                    <td th:text="${el.title}"></td>
+                    <td th:text="${el.description}"></td>
+                    <td>
+                        <p th:each="user : ${el.getPresentersList()}" th:text="${user.name}"><p>
+                    </td>
+                    <td th:text="${el.getSchedule().startDate}"></td>
+                    <td th:text="${el.getSchedule().beginningTime}"></td>
+                    <td th:text="${el.getSchedule().endingTime}"></td>
+                    <td th:text="${el.getSchedule().room.roomNumber}"></td>
+                    <td sec:authorize="hasAnyAuthority('PRESENTER')">
+                        <a th:href="'/presentations/' + ${el.id} + '/edit'" class="btn btn-outline-warning" th:if="${el.getPresentersList().contains(authUser)}">Edit</a>
+                        <a th:href="'/presentations/' + ${el.id} + '/delete'" class="btn btn-outline-danger" th:if="${el.getPresentersList().contains(authUser)}">Delete</a>
+
+                        <button class="btn btn-outline-secondary" th:if="!${el.getPresentersList().contains(authUser)}" disabled>Edit</button>
+                        <button class="btn btn-outline-secondary" th:if="!${el.getPresentersList().contains(authUser)}" disabled>Delete</button>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="'/presentations/' + ${el.id} + '/edit'" class="btn btn-outline-warning">Edit</a>
+                        <a th:href="'/presentations/' + ${el.id} + '/delete'" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</body>
+</html>

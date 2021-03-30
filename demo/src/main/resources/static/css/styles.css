@@ -1,0 +1,43 @@
+body {
+    background-color: #121212;
+    color: white;
+}
+
+header {
+    background-color: #272727;
+    color: #0275f0;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+#schedule-table {
+    color: white;
+}
+
+#users-table {
+    color: white;
+}
+
+.users-table-header, .schedule-table-header {
+    background-color: #272727;
+}
+
+.ADMIN {
+    color: orangered;
+}
+
+.LISTENER {
+    color: lightgreen;
+}
+
+.PRESENTER {
+    color: orange;
+}

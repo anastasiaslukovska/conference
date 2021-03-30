@@ -1,0 +1,111 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration-styles.css}"/>
+    <title>Add presentation</title>
+</head>
+<body>
+
+<main class="my-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-container">
+                    <div class="card-header">Add new presentation</div>
+                    <div class="card-header" id="error" th:if="${error} != null" th:text="${error}" style="background-color: lightcoral"></div>
+                    <div class="card-body">
+                        <form name="my-form" action="/presentations/add" method="post">
+                            <div class="form-group row">
+                                <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="title" class="form-control" name="title" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+                                <div class="col-md-6">
+                                    <textarea type="text" id="description" class="form-control" name="description" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="room" class="col-md-4 col-form-label text-md-right">Room</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="room" class="form-control" name="room" required></input>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="date" class="col-md-4 col-form-label text-md-right">Date</label>
+                                <div class="col-md-6">
+                                    <input type="date" id="date" class="form-control" name="date" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="beginning_time" class="col-md-4 col-form-label text-md-right">Beginning time</label>
+                                <div class="col-md-6">
+                                    <input type="time" id="beginning_time" class="form-control" name="beginning_time" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="ending_time" class="col-md-4 col-form-label text-md-right">Ending time</label>
+                                <div class="col-md-6">
+                                    <input type="time" id="ending_time" class="form-control" name="ending_time" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="presenters" class="col-md-4 col-form-label text-md-right">Presenters</label>
+                                <div class="col-md-6">
+                                    <select id="presenters" class="form-control presenters" name="presenters" required multiple="multiple">
+                                        <option th:each="el : ${presenters}" th:value="${el.login}" th:text="${el.name}"
+                                                name="presenters"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Confirm
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.presenters').select2();
+    });
+</script>
+</body>
+</html>
